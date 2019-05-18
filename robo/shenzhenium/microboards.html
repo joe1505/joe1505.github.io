@@ -1,0 +1,65 @@
+<html>
+<head>
+  <title>Parts from China: ARM Microcontrollers</title>
+  <LINK REL=StyleSheet HREF="../../basic.css" TYPE="text/css">
+  <!-- google is unable to properly format the page without this line -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="rightimage">
+<img src="pix/bluepill_pcb.jpg" width=249 height=240 alt="Bluepill STM32F103 ARM PCB">
+</div>
+<h1>Microcontroller Boards</h1>
+<p>Many vendors sell a PCB containing the STM32F10C8T6 ARM microcontroller. Ebay
+prices including shipping are typically $2 each or even a bit less. For comparison
+the chip alone is well over $3 in quantity 10 from US distributors, including the
+trade war tariff.
+<br><img src="pix/stm32f103_cost.png" width=635 height=63 alt="Cost $3.99@10 for chip alone">
+<p>This is an embedded ARM chip, targeted at the same markets as the ATmega328 in
+an Arduino UNO or similar board.
+<p>Advantages over an UNO copy include
+<ul>
+<li>The chip has a built-in USB interface, so it doesn't need a USB-UART chip.
+<li>With built-in USB it can be programmed to be another USB device (keyboard, mouse,
+audio, etc), rather than just a serial device.
+<li>It's much faster - 72MHz.
+<li>More peripherals - 3 UART's instead of 1, 12-bit ADC instead of 10, 2 I2C, SPI, ...
+</ul>
+<p>And of course some disadvantages
+<ul>
+<li>Totally different pinout from any Arduino board.
+<li>Use with Arduino IDE requires some hacking.
+<li>Runs on 3.3 volts max. Uno can do 5.
+<li>You will need an external USB to serial adaper to program it.
+</ul>
+<h2>Programming Options</h2>
+<p>One option is the
+<a href="https://www.st.com/en/development-tools/stm32cubemx.html">STM32CubeMX GUI from ST</a>
+This free tool from ST has a GUI to select the peripherals in use, set clock rates, etc.
+It then generates skeleton code to configure everything and provides subroutines for I/O.
+<p>Another option is the <a href="https://github.com/libopencm3/libopencm3">libopencm3</a>
+Library. This is an old-school programming environment: it's a library to call from your own
+program, written with your own editor.
+<p>The <a href="https://www.stm32duino.com">stm32duino</a> project has done a lot of work to
+integrate the stm32 family of chips into the Arduino framework.
+<h2>Use with Arduino IDE</h2>
+<p>If you search
+online, people typically call this board the &ldquo;Blue Pill&rdquo;, from the movie, so
+searching online for bluepill and arduino finds lots of related information.
+<p> <a href="https://www.onetransistor.eu/2017/11/stm32-bluepill-arduino-ide.html"
+ >www.onetransistor.eu/2017/11/stm32-bluepill-arduino-ide.html</a> has good notes on
+the board and how to use it with the Arduino IDE.
+<p> There is also information at
+<a href="https://wiki.stm32duino.com/index.php">wiki.stm32duino.com/index.php</a>, but personally
+I found the onetransistor.eu page to be more useful.
+<p>To use it with the Arduino GUI, you need to
+<ul>
+<li>Install the USB arduino interface in flash. You will need a USB to serial converter connected
+to the serial port of the Blue Pill for this step only. You can't use the onboard USB for initial
+setup, because the chip's internal bootloader doesn't support the internal USB port.
+<li>Install the board package.
+</ul>
+Both of these steps are documented on the &ldquo;onetransistor.eu&rdquo; webpage.
+</ul>
+</body>
+</html>

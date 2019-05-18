@@ -1,0 +1,88 @@
+<html>
+<head>
+  <title>Parts from China: Motor Drivers</title>
+  <LINK REL=StyleSheet HREF="../../basic.css" TYPE="text/css">
+  <!-- google is unable to properly format the page without this line -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="rightimage">
+<img src="pix/hbridge_concept.png" width=216 height=531 alt="h-bridge concept schematic">
+<br>H-bridge driver for small motors
+<br>(a)Concept
+<br>(b)Bipolar implementation
+<br>(c)MOSfet implementation
+<br><img src="pix/L9110_pcb.jpg" width=228 height=220 alt="H-bridge motor driver PCB using L9110">
+<br>L9110 PCB
+<br><img src="pix/tb6612_pcb.jpg" width=222 height=224 alt="H-bridge motor driver PCB using TB6612">
+<br>TB6612 PCB
+</div>
+<h1>Motor Drivers</h1>
+<h2>Background</h2>
+<p>DC motors typically use an H-bridge drive circuit. This allows
+forward and backward operation by reversing the polarity of the voltage
+applied to the motor.
+<p>For the small motors in small robots, there are two basic ways to implement an H-bridge
+circuit:
+<ul>
+<li>Bipolar transistors
+<li>Field effect (MOS) transistors
+</ul>
+<p> When used as switches these two types have significantly different electrical
+characteristics.
+<p>In the on state, a bipolar transistor switch operates in what's called &ldquo;saturation mode&rdquo;.
+When in saturation, there is a  relatively fixed voltage drop across the transistor. I
+say &ldquo;relatively&rdquo;, because it does vary somewhat with current. The saturation voltage can
+be a few tenths of a volt, up to one volt or more for power transistors handling large currents.
+<p> MOS transistor switches behave much like a resistor - the voltage across the transistor is
+proportional to the current it's carrying. The effective resistance value depends on both the
+physical size of the transistor and the applied gate voltage.
+<p>So the bottom line is that a MOS-based H-bridge typically has less voltage drop across
+the switch itself than a comparable bipolar implementation. That means less heating of the
+switch, and less need for a heat sink. Also, for low battery voltages (say, 5 volts and below)
+the difference in voltage applied to the motor itself can make a difference in performance.
+<h2>Selection</h2>
+<p>These are some chips commonly used in small motor driver boards.
+<table>
+<tr><th>Chip</th><th>Input</th><th>Output</th><th>Voltage<br>Drop</th></tr>
+<tr><td>L9110</td><td>2.5-12V</td><td>800mA</td><td>2.85V@750mA,9V</td></tr>
+<tr><td>HG7881</td><td>2.4-10V</td><td>0.6-1A</td><td>1.7V@800mA,6V</td></tr>
+<tr><td>L298</td><td>&leq;46</td><td>2.0A</td><td>2.55V@1A<br>3.7@2A</td></tr>
+<tr><td>TB6612</td><td>2.5-13.5</td><td>1.0A</td><td>0.5V@1A<br>0.15V@0.3A</td></tr>
+</table>
+<p>Some comments:
+<ul>
+<li>Values in the table are typical or recommended values from the data sheets. See the data
+sheets for specifics and limitations.
+<li>The L9110 and HG7881 seem very similar. Differences in the table above may be differences
+in test conditions rather the differences in the chips themselves.
+<li>The L298 can handle higher voltages and currents, but the high voltage drops mean it
+needs a good heat sink.
+<li>The TB6612 is the only MOSfet-based unit in the list, and that's clearly visible in
+the voltage drops. When turned on, the chip basically looks like a 0.5 ohm resistor in
+series with the motor. 
+</ul>
+<p> So as a selection guide:
+<ul>
+<li>The L9110/HG7881's are the way to go for absolute lowest cost, typically well under $1.
+<li>The TB6612 is a bit more expensive, typically $1-2. The better numbers are probably worth
+it in many cases.
+<li>The L298 is an ok choice for higher currents and higher supply voltages, but I would consider
+some of the boards using a driver chip with external discrete MOSfet's instead.
+</ul>
+<h2>Notes</h2>
+<ol>
+<li><a href="https://www.elecrow.com/download/datasheet-l9110.pdf">L9110 data sheet</a>
+<li><a href="http://me.web2.ncut.edu.tw/ezfiles/39/1039/img/617/L9110_2_CHANNEL_MOTOR_DRIVER.pdf"
+   >Data sheet for a board using the L9110</a>
+<li><a href="https://opcenter.de/pub/HG7881C_EN.pdf">HG7881 Data Sheet</a>
+<li>A data sheet for the L298 is available on the
+     <a href="https://www.st.com">ST Microelectronics</a> website.
+<li> <a href="https://www.rugged-circuits.com/the-motor-driver-myth"
+  >www.rugged-circuits.com/the-motor-driver-myth</a> About the L298 and voltage drops. Explains
+  why you need a really big heat sink.
+<li>A data sheet for the TB6612 is available on the
+     <a href="https://www.Toshiba.com">Toshiba</a> website.
+</ol>
+</body>
+</html>

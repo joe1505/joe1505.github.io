@@ -1,0 +1,25 @@
+<html>
+<head>
+  <title>Parts from China: Inertial Measurement Units</title>
+  <LINK REL=StyleSheet HREF="../../basic.css" TYPE="text/css">
+  <!-- google is unable to properly format the page without this line -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>Inertial Measurement Units</h1>
+<p> A bunch of vendors sell boards with the InvenSense IMU chips.
+<ul>
+<li>The IMU6000 is the baseline 6-axis chip: X, Y, and Z accelerometers, and gyroscopes
+for rotation about the X, Y, and Z axes.
+<li>The IMU6050 is almost the same, but has only an I2C interface. No SPI.
+<li>The IMU6500 is virtually identical to the IMU6000, except it has slightly better
+specifications (lower internal noise). So it should be a drop-in replacement for
+the IMU6000, with improved accuracy.
+<li> The IMU9250 is a 9-axis unit; it adds a 3-axis magnetometer to measure compass
+heading. Per the data sheet, this unit is actually an IMU6500 with a magnetometer
+chip squeezed into the same package.
+</ul>
+<p>So the best choice for most folks is probably the IMU6500. For 9 axes, a separate
+magnetometer chip would allow better placement to avoid interference.
+</body>
+</html>

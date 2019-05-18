@@ -1,0 +1,122 @@
+/* Starting with $HOME/1104omap/docs/stylesheet.css */
+/* $Id: sensicomm_basic.css,v 1.3 2014/05/06 18:46:09 jrothwei Exp $ */
+
+/* I only use h1 for major titles at the tops of pages.*/
+h1 {
+	font-size: 140%;
+	font-family: sans-serif;
+	/* Lighten the colors, to show up better. */
+	color: rgb(34,0,102);
+	background-color: rgb(255,222,150);
+	/* text-transform: uppercase; */
+}
+h2 {
+	color: rgb(34,0,102);
+	font-family: sans-serif;
+}
+h3 {color:rgb(255,0,255)/*magenta*/}
+
+address {color:maroon}
+address.main {
+	font-size: 100%;
+	font-weight: bold;
+}
+address.h1left { /* For top of page, after h1 */
+	color: rgb(34,0,102); /* Same as h1. */
+	white-space:pre-line; /* Compress spaces, but keep line breaks. */
+}
+/************************/
+code {
+ background-color: #d8d8ff;
+ }
+pre.code {
+ background-color: #e8e8ff;
+}
+/************************/
+hr {
+	/* noshade;*/
+	height: 4px;
+	color: rgb(76,0,102);
+	background: rgb(178,128,26);
+}
+/*****************************
+** to mark changed sections */
+.new { background-color: #ccffff}
+
+/*****************************
+** To make a definition list with dt and dd displayed on the same line. */
+.min dt {
+  font-weight: bolder;
+  display: run-in;
+  float: left;
+  clear: left;
+  padding-right: 1em; /* gap before dd when dt is big. */
+}
+.min dd {
+  margin-bottom: 0;
+  // display:inline;
+  margin-left: 7em;
+}
+
+/*****************************
+** Nested ul's, similar to a PowerPoint slide . */
+
+.slidey ul {
+
+        margin-left: 1.0em;     /* Mark against border. */
+        padding-left: 0.0em;    /* Short indent after mark */
+        font-size: 17px;
+        margin-top: 0.2em;
+        margin-bottom: 0;
+        font-weight: bold;
+        font-family: serif;
+        color: #660066;
+}
+.slidey ul ul {
+        font-size: 14px;
+        font-weight: bold;
+        font-family: serif;
+        color: black;
+        margin-top: 0.1em;
+        margin-bottom: 0;
+}
+.slidey ul ul ul {
+        font-size: 14px;
+        font-weight: normal;
+        font-family: sans-serif;
+        margin-top: 0;
+}
+
+/*****************************
+** For images. */
+
+.leftimage {
+        float: left;
+        padding: 5px;
+}
+.rightimage {
+        float: right;
+        padding: 5px;
+}
+figcaption {
+        font-weight: bold;
+	font-size: 110%;
+	font-family: sans-serif;
+}
+/*****************************
+** For tables. */
+table{
+        background:rgb(255,250,220); /* Shows up between cells. */
+}
+table.in {background: none;}
+thead{
+        font-weight: bold;
+        background:rgb(255,212,162);
+}
+tbody{
+        background:rgb(255,240,190);
+}
+caption {
+        background:rgb(255,240,190);
+        font-weight: bold;
+}

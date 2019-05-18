@@ -1,0 +1,111 @@
+<html>
+<head>
+  <title>Parts from China: switching regulators</title>
+  <LINK REL=StyleSheet HREF="../../basic.css" TYPE="text/css">
+  <!-- google is unable to properly format the page without this line -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="rightimage">
+  <img src="pix/reg_topol50.png" width="196" height="277" alt="Buck,Boost,Invert topologies">
+  <br>
+  <!-- 400 536 -->
+  <img src="pix/regulators3.jpg" width=200" height="268" alt="3 regulator PCB's">
+  <p class="figcaption">Switching voltage regulators
+    <br>Buck-boost using XL6009
+    <br>buck using LM2596
+    <br>buck using MP1484 or MP2307
+</div>
+<h1>Switching Regulator Boards</h1>
+<p> Switching regulators can be grouped into a few basic flavors:
+<dl class="min">
+<dt>Buck<dd> or down: Output voltage is lower than the input voltage.
+<dt>Boost<dd> or up:  Output voltage is higher than the input voltage.
+<dt>Buck-Boost<dd> or up-down: Output voltage may be either higher or lower than the input voltage.
+<dt>Inverting<dd> Output voltage in negative, input voltage is positive.
+</dl>
+<p> Typically buck-boost converters are more complicated than straight buck or boost. They
+come in handy with batteries, where the voltage can vary widely depending on the state of charge.
+<p> For low power applications such as an Arduino, Raspberry Pi, or similar boards, suitable
+Chinese regulators typically consist of a single-chip switching regulator with the
+inductors and capacitors it requires. So comparing boards means finding the data sheet for
+the IC.
+<h2>Selection Considerations</h2>
+<p> First step in selecting a regulator is to make sure it can deliver
+the output voltage and current needed, and that it
+can handle the input voltage.
+<p> Other significant parameters to consider are:
+<dl class="min">
+<dt>Switch frequency<dd>a higher switching frequency means lower
+    inductor and capacitor values can be used. In other words, higher
+    frequency means the circuit can be smaller and cheaper.
+<dt>Synchronous<dd>the function of the diode is performed instead
+    by circuitry inside the chip. In addition to saving one component,
+    efficiency is usually higher.
+<dt>Switch type<dd>Chips using bipolar transistors are usually cheaper,
+    but FET's tend to be more efficient.
+</dl>
+<h2>My Buys</h2>
+<p> I have these:
+<table>
+<tr><th>Chip</th><th>Type</th><th>Khz</th><th>Switch</th><th>Vin</th><td>Iout</td><td>Synchronous</td></tr>
+<tr><td>XL6009</td><td>up/dn</td><td>400</td><td>N-MOS</td><td>5-32</td><td>?</td><td>No</td></tr>
+<tr><td>LM2596</td><td>dn</td><td>150</td><td>NPN</td><td>4.5-40</td><td>3A</td><td>No</td></tr>
+<tr><td>MP1484<br
+        >MP2307</td><td>dn</td><td>400</td><td>N-MOS</td><td>4.75-18<br
+                                                            >4.75-23</td><td>3A</td><td>Yes</td></tr>
+</table>
+<p>For the third one, the Ebay listing said the board uses the MP1484 chip, but the ones I received
+are marked MP2307. Assuming the chip markings are accurate and not counterfits, it's a
+slightly better chip than what I ordered.
+<br clear=all>
+<h2>Testing</h2>
+<p>For a simple test, I connected the LM2596 and MP2307 to a 12-volt supply (measured 12.13 actual)
+with a resistor load measured at 63.0 ohms. Output voltage was set to approximately 5 Volts
+using the on-board potentiometers.
+<table>
+<tr><th>Chip</th
+         ><th>Input Current<br
+              >No Load</th
+                    ><th>Input Current<br
+                          >Loaded</th
+	                          ><th>Input<br
+                                       >Power</th
+                                            ><th>Output<br
+                                                >Voltage</th
+                                                       ><th>Output<br
+                                                        >Power</th>
+</tr>
+<tr><td>MP2307</td> <td>7.54mA</td> <td>47.1mA</td> <td>0.571W</td> <td>4.95V</td> <td>68.1%</td></tr>
+<tr><td>LM2596</td> <td>6.86mA</td> <td>41.4mA</td> <td>0.502W</td> <td>5.08V</td> <td>78.8%</td></tr>
+</table>
+<p class="figcaption">Output ripple waveform for LM2596
+<br> <img src="pix/lm2596_sig.jpg" width=360 height=120 alt="Output waveform for LM2596">
+<p class="figcaption">Output ripple waveform for MP2307
+<br> <img src="pix/mp2307_sig.jpg" width=368 height=80 alt="Output waveform for MP2307">
+<p>The data sheets for the two chips assume operation at higher currents (1 to 2 Amperes). The LM2596
+output waveform is consistent with discontinuout mode (ie, lightly loaded), and the measured
+efficiencies are roughly consistent with the published curves (efficiencies should be in the
+90 to 95% range at 1A output).
+<p> I didn't do measurements on the XL6009: I only have one, and I managed to damage it. Per a
+  <a href="https://electronics.stackexchange.com/questions/308143/reduce-current-flowing-into-a-switch-by-using-xl6009-enable-pin">Discussion on Stack Exchange</a>,
+this board appears to use a two-inductor circuit for up-down operation. That's said to be simpler,
+cheaper, and less efficient than the transformer-based circuit recommended in the data sheet.
+<li>LM2596 is a Texas Instruments chip. <a href="http://www.ti.com">ti.com</a>
+<h2>Summary</h2>
+<p>For small (eg, tabletop) robots, the MP2307 board looks good. It has higher efficiency
+   and lower output ripple.
+<p>For my own use, I like the LM2596 if the input power source is noisy - such as when there are
+big DC motors powered by the same battery. The high maximum input voltage leaves room for some
+voltage spikes, etc.
+<p>Buck-boost converters are handy when you need them, but buck-only is a better choice where
+possible.
+<h2>Notes</h2>
+<ul>
+<li><a href="https://www.haoyuelectronics.com/Attachment/XL6009/XL6009-DC-DC-Converter-Datasheet.pdf"
+  >kylinchip XL6009</a> datasheet.
+<li>LM2596 is mady be <a href="https://www.ti.com">Texas Instruments</a>
+<li>MP2307 and MP1488 datasheets are made by <a href="http://www.monolithicpower.com">monolithicpower.com</a>
+</ul>
+</body>
+</html>

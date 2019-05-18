@@ -1,0 +1,73 @@
+<html>
+<head>
+  <title>Parts from China: Lithium Charging</title>
+  <LINK REL=StyleSheet HREF="../../basic.css" TYPE="text/css">
+  <!-- google is unable to properly format the page without this line -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<!-- Actual 500x229 -->
+<div class="rightimage">
+<!-- 384x357 -->
+<br><img src="pix/lifepo4_cells.jpg" width=192 height=178 alt="LiFePo4 batteries">
+
+<br><img src="pix/lifepo4_charge.jpg" width=250 height=130 alt="Lithium charge curve">
+<p class="figcaption">Lithium charge curve<br>(From powerstream.com)
+<!-- 432x392 -->
+<br><img src="pix/tp5000_brd.jpg" width=216 height=196 alt="Lithium cell charging PCB">
+<br><img src="pix/usb_charger.jpg" width=268 height=68 alt="single-cell USB charger">
+</div>
+<h1>LiFePo4 Battery Charging Boards</h1>
+<h2>Charging Considerations</h2>
+<p>Lithium-based batteries are more sensitive to charging conditions than NiCD or NiMH. They
+need a multistep charging process:
+<div class="min">
+<ul>
+<li>Constant-current charging up to a threshold voltage, then
+<li>constant-voltage charging until the charge current drops to near zero.
+</ul>
+</div>
+Therefore a good LiFePo4 charger is basically a special-purpose voltage regulator,
+with good control of both current and voltage over time.
+<p>Note that LiFePo4's can't easily be charged in series: when a cell is fully charged,
+it stops passing current. So the other cells in the series string will be prevented from
+reaching full charge. In order to charge a series pack, there needs to be a  battery
+pack controller to manage each cell.
+<p> For my purposes, I'm planning to place the cells in a separate charger charge
+them individually. The LiFePo4 chargers I've found online use mainly 2 controller chips:
+<p>
+<div class = "min">
+<dl>
+<dt>TP5000<dd>A switching regulator. Designed in china. Only available datasheet is
+Google-translated. 
+<dt>CN3058<dd>Linear charging regulator.
+</dl>
+<p> Good review of TP5000-based charger boards are available at
+<br><a href="https://lygte-info.dk/review/Review%20Charger%20TP5000%204.2-3.6V%20module%20UK.html"
+>lygte-info.dk/review/Review%20Charger%20TP5000%204.2-3.6V%20module%20UK.html</a>
+<br>and
+<br> <a href="https://secondlifestorage.com/t-TP5000-module-review-and-technical-details"
+      >secondlifestorage.com/t-TP5000-module-review-and-technical-details</a>
+<p> The one I purchased is very similar, but not identical. Mine came strapped for
+LiFePo4 batteries (3.6 volt max) as received. Also, it had a single 0.05 ohm sensing
+resistor (R3) to set the charging current to 2A max. I'm using much smaller batteries, so I
+replaced this resistor with a 1 ohm unit to set the charging current to 0.1A max. Look
+for a small-value resistor connected between pins 8 and 9 of the chip.  It's a
+surface-mount component, so requires a moderate amount of soldering skill.
+<p>There's a jumper to set the voltage to either 3.6 or 4.2 volts (for other types
+of Lithium batteries). I'm strictly using LiFePo4's, so no need to change that.
+<p> The CN3058 is a simple linear charger. From the data sheet, it appears to use the
+proper current-voltage profile for LiFePo4 cells. USB single-cell chargers using this
+chip are available from $3.50 or so.
+<h2>Summary</h2>
+<p>The TP5000 board looks like a nice solution for experienced users who want to charge larger
+  LiFePo4 cells. Otherwise, just buy a preassembled charger.
+<h2>Notes</h2>
+<ul>
+<li><a href="https://voron.ua/files/pdf/Microshema/TP5000_auto_translated_.pdf"
+  >voron.ua/files/pdf/Microshema/TP5000_auto_translated_.pdf</a> TP5000 data sheet (Google-translated).
+<li><a href="http://www.consonance-elec.com/pdf/datasheet/DSE-CN3058.pdf"
+  >www.consonance-elec.com/pdf/datasheet/DSE-CN3058.pdf</a> CN3058 linear charger data sheet.
+</ul>
+</body>
+</html>
