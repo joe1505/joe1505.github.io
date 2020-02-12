@@ -1,0 +1,114 @@
+<html>
+<head>
+  <title>Parts from China: USB Hubs</title>
+  <LINK REL=StyleSheet HREF="../../basic.css" TYPE="text/css">
+  <!-- google is unable to properly format the page without this line -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>USB Hubs</h1>
+<p>
+I needed a USB hub, and found that not many stores around me carry them any more.
+Not in a rush, so hubs from China via Ebay are a good option. The listings are
+cheap but sound suspicious, so I decided to buy a few and check them out. So here
+they are. Prices are Ebay &ldquo;Buy It Now&rdquo; prices, including shipping for
+quantity one.
+<p>
+<div class="leftimage">
+<tr><td><img src="pix/usb7.jpg" width=224 height=196></td></tr>
+</div>
+Seven port hub, with per-port power switches. Paid $2.66. Marked &ldquo;USB 2.0
+  High Speed Hub&rdquo;. It shows up on the bus as
+<br><code> 0a05:7211 Unknown Manufacturer hub</code>
+<br><code> 0a05:7211 Unknown Manufacturer hub</code>
+<br> Internally, it has a couple of chips marked MW7211. I found a datasheet online,
+translated from Chinese by Google Translabe. It's a 4-port hub which is Full Speed (12Mbps),
+not High Speed (480Mbps). Internally the first chip feeds 3 downstream ports, while the
+4<sup>th</sup> port feeds the second hub, giving the total of 7 downstream ports.
+<p>Construction was somewhat sloppy, with fragments of solder scattered around the
+board. Interesting design: the current-limiting resistors for the LED's are printed
+directly onto the board using conductive
+ink. Considering that surface mount resistors cost well under a penny in modest quantities,
+it's hard to believe that replacing ordinary nonprecision resistors saves either cost
+or assembly time.
+<p> So it does work, but the marking is &mdash;shall we say &mdash; optimistic.
+<br clear="all">
+<p>
+<div class="leftimage">
+<img src="pix/usbblk.jpg" width=235 height=84>
+</div>
+Paid $1.99. The listing advertised it as &ldquo;USB 1.1 High Speed 480 Mbps&rdquo;,
+which is impossible: High Speed is an option added in USB2.0. In fact, it's another
+Full Speed (12MBps) hubs. Shows as
+<br><code>0a05:7211 Unknown Manufacturer hub</code>
+<br> just like the 7-port hub. The hub chip is mounted chip-on-board. That is, the
+bare unpackaged die is attached directly to the PCB, wire-bonded to the PCB traces,
+and then covered with a black epoxy blob. It's a common technique for high-volume
+low cost assembly.
+<br clear="all">
+<p>
+<div class="leftimage">
+<img src="pix/usbrect.jpg" width=251 height=145>
+</div>
+Paid $1.89. Advertised as &ldquo;USB 2.0&rdquo;. Identifies as
+<br><code>05e3:0606 Genesys Logic, Inc. USB 2.0 Hub / D-Link DUB-H4 USB 2.0 Hub</code>
+<br> but <code>lsusb -v</code> describes it as a Full Speed(12Mbps) not High
+Speed(480Mbps) device. This is another chip-on-board product, so it's impossible
+to know what kind of hub chip is really being used.
+<br clear="all">
+<p>
+<div class="leftimage">
+<img src="pix/usb3.jpg" width=246 height=132>
+</div>
+Paid $3.32. It's marked  &ldquo;USB3.0 Superspeed &ldquo;. USB superspeed is 3000Mbps (3Gbps),
+and &hellip; IT REALLY IS!!. This was the suprise of the bunch: I tested a file transfer to
+a 3.0 USB stick, and it achieved the same transfer rates as connecting direct to the USB3 port.
+Internal construction was decent as well. On Linux, <code>lsusb</code> finds
+<br><code>05e3:0610 Genesys Logic, Inc. 4-port hub</code><br>
+The chip inside is marked GL3510. I wasn't able to find that chip online but the GL3520
+is a 4-port USB3.0 hub, so I'm hoping the GL3510 is an older version and not a counterfeit.
+<br clear="all">
+<h2>General Cautions</h2>
+<p> There are some even cheaper devices, around the $1.00 or less range. Per a careful
+reading, they aren't even hubs. They are just a set of USB connectors wired in parallel.
+Such an adapter might be ok for devices that only need power, but one needs to be sure the
+upstream power source (PC or wall wart) isn't overloaded. 
+<p>A good quality HUB hub really should have current limiting protection on each downstream
+port. None of these units have that. Instead the +5volt input from the upstream USB port is
+connected directly to all of the downstream USB ports. That's not too much of a problem with
+simple low power devices like mice and keyboards, but it would be possible to overload
+the host port by plugging in multiple higher powered devices (such as trying to charge
+muliple phones at the same time).
+<p> Some have a power port, to connect an external +5 power supply. However, the external
++5 connector is simply wired in parallel with the +5 power from the USB host port. This
+is a bad idea: it allows the external supply to pump power back into the host (PC, laptop,
+or whatever), especially if the host is off when the external supply is on. You might be
+able to get by with this if the host is well-designed, but personally I would never use
+an external supply with one of these devices. A couple of them are safe: they don't even
+have the power jack mounted. They just have a hole in the case and an empty spot on
+the circuit board.
+<p>
+Data sheets for USB Hub IC's generally recommend protection diodes on the signal lines,
+to protect from damage due to static. None of these have such diodes, of course. At this
+price it's not a big deal: just throw the thing away if it gets static-zapped.
+<p>
+Superspeed signal lines require careful control of the trace layout and geometry
+for good performance. Google  &ldquo;Characteristic Impedance &rdquo;,
+&ldquo;stripline &rdquo;, etc if you are interested in more details. Meeting those
+specs trypically requires at least a 4-layer circuit board. This USB3 hub uses
+a 2-layer board to save cost. I can't actually check the impedance because
+it requires expensive equipment that I don't have, but I would be surprised if
+it meets spec. If it works it works, but I would watch out for problems in
+challenging situations (such as longer cables, cheap cables, or multiple hubs
+in series).
+<h2>Summary</h2>
+<p>
+You get what you pay for. They all work, and I think they're well worth what
+little I paid for them. Just be careful, and don't put too much faith in the
+descriptions.
+<p> 
+If you need good-quality hubs that fully meet the USB specs then, well, good luck. 
+I'm not sure how to separate the ones that are actually good from those that
+just have a good-sounding description.
+</body>
+</html>
